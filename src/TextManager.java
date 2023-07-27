@@ -6,6 +6,9 @@ public class TextManager {
 		this.textPaneContents = "";
 	}
 	
-	public void setTextPaneContents(String arg) { this.textPaneContents = arg; }
+	public void setTextPaneContents(String arg) { 
+		this.textPaneContents = "";
+		this.textPaneContents = arg; 
+	}
 	public String getTextPaneContents() { return this.textPaneContents; }
 }
