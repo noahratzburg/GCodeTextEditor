@@ -67,21 +67,30 @@ public class Editor extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JTextArea textArea;
+	JTextPane textPane;
 	JScrollPane scrollPane;
 	
 	Editor() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("Gcode Translate");
+		this.setTitle("GCode Translate");
 		this.setSize(500, 500);
 		this.setLayout(new FlowLayout());
 		this.setLocationRelativeTo(null);
 		
-		textArea = new JTextArea();
-		textArea.setLineWrap(false);
-		textArea.setFont(new Font("Arial", Font.PLAIN, 14));
+		textPane = new JTextPane();
+		textPane.addKeyListener(new KeyListener() {
+
+			public void keyPressed(KeyEvent e) {
+				keyPressedHandler(e);
+			}
+			public void keyTyped(KeyEvent e) {}
+			public void keyReleased(KeyEvent e) {}
+			
+		});
+		//textArea.setLineWrap(false);
+		textPane.setFont(new Font("Arial", Font.PLAIN, 14));
 		
-		scrollPane = new JScrollPane(textArea);
+		scrollPane = new JScrollPane(textPane);
 		scrollPane.setPreferredSize(new Dimension(450, 450));
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
@@ -93,6 +102,10 @@ public class Editor extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void keyPressedHandler(KeyEvent e) {
+		System.out.println("Key Event Captured : " + e.getKeyChar());
 	}
 	
 }
