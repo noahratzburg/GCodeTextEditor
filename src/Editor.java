@@ -13,8 +13,10 @@ public class Editor extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	JTextPane textPane;
 	JScrollPane scrollPane;
+	TextManager textManager;
 	
 	Editor() {
+		textManager = new TextManager();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("GCode Translate");
 		this.setSize(500, 500);
@@ -22,20 +24,23 @@ public class Editor extends JFrame implements ActionListener {
 		this.setLocationRelativeTo(null);
 		
 		textPane = new JTextPane();
-		textPane.addKeyListener(new KeyListener() {
-
-			public void keyPressed(KeyEvent e) {
-				keyPressedHandler(e);
-			}
-			public void keyTyped(KeyEvent e) {}
-			public void keyReleased(KeyEvent e) {}
-			
-		});
+		
+//		TODO Keylisteners :)
+//		textPane.addKeyListener(new KeyListener() {
+//
+//			public void keyPressed(KeyEvent e) {
+//				keyPressedHandler(e);
+//			}
+//			public void keyTyped(KeyEvent e) {}
+//			public void keyReleased(KeyEvent e) {}
+//			
+//		});
+		
 		textPane.getDocument().addDocumentListener(new DocumentListener() {
 			public void insertUpdate(DocumentEvent e) {
 				try {
-					System.out.println("Insert...");
-					System.out.println(e.getDocument().getText(0, e.getDocument().getLength()));
+					updateTextManager(e.getDocument().getText(0, e.getDocument().getLength()));
+					System.out.println(textManager.getTextPaneContents());
 				} catch (BadLocationException e1) {
 					e1.printStackTrace();
 				}
@@ -43,8 +48,8 @@ public class Editor extends JFrame implements ActionListener {
 			}
 			public void removeUpdate(DocumentEvent e) {
 				try {
-					System.out.println("Removed...");
-					System.out.println(e.getDocument().getText(0, e.getDocument().getLength()));
+					updateTextManager(e.getDocument().getText(0, e.getDocument().getLength()));
+					System.out.println(textManager.getTextPaneContents());
 				} catch (BadLocationException e1) {
 					e1.printStackTrace();
 				}
@@ -52,8 +57,8 @@ public class Editor extends JFrame implements ActionListener {
 			}
 			public void changedUpdate(DocumentEvent e) {
 				try {
-					System.out.println("Changed...");
-					System.out.println(e.getDocument().getText(0, e.getDocument().getLength()));
+					updateTextManager(e.getDocument().getText(0, e.getDocument().getLength()));
+					System.out.println(textManager.getTextPaneContents());
 				} catch (BadLocationException e1) {
 					e1.printStackTrace();
 				}
@@ -78,7 +83,11 @@ public class Editor extends JFrame implements ActionListener {
 	}
 	
 	public void keyPressedHandler(KeyEvent e) {
-		System.out.println("Key Event Captured : " + e.getKeyChar());
+		// TODO Key press handled here.
+	}
+	
+	public void updateTextManager(String arg) {
+		this.textManager.setTextPaneContents(arg);
 	}
 	
 }
