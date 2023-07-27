@@ -56,3 +56,43 @@
 //	}
 //
 //}
+
+import javax.swing.*;
+
+import java.awt.*;
+import java.awt.event.*;
+
+public class Editor extends JFrame implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	JTextArea textArea;
+	JScrollPane scrollPane;
+	
+	Editor() {
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("Gcode Translate");
+		this.setSize(500, 500);
+		this.setLayout(new FlowLayout());
+		this.setLocationRelativeTo(null);
+		
+		textArea = new JTextArea();
+		textArea.setLineWrap(false);
+		textArea.setFont(new Font("Arial", Font.PLAIN, 14));
+		
+		scrollPane = new JScrollPane(textArea);
+		scrollPane.setPreferredSize(new Dimension(450, 450));
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		
+		this.add(scrollPane);
+		this.setVisible(true);
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}
