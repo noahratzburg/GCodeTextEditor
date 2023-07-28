@@ -83,6 +83,12 @@ public class Line {
 		}
 	}
 	
+	public void UpdateLine() {
+
+
+		
+	}
+	
 	public enum Keycode{
 		GCODE, MCODE, ZPOINT, XPOINT, YPOINT, APOINT, PCODE, LCODE, DCODE, HCODE, ICODE, JCODE, KCODE, COMMENT, UNKNOWN, BLANK
 	}

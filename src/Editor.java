@@ -6,6 +6,36 @@ import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.*;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GraphicsEnvironment;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.Element;
+import javax.swing.text.MutableAttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import javax.swing.text.StyledEditorKit;
+import javax.swing.text.DefaultStyledDocument;
+
 public class Editor extends JFrame implements ActionListener {
 	/**
 	 * 
@@ -14,6 +44,7 @@ public class Editor extends JFrame implements ActionListener {
 	JTextPane textPane;
 	JScrollPane scrollPane;
 	TextManager textManager;
+	StyledDocument doc;
 	
 	Editor() {
 		textManager = new TextManager();
@@ -23,7 +54,9 @@ public class Editor extends JFrame implements ActionListener {
 		this.setLayout(new FlowLayout());
 		this.setLocationRelativeTo(null);
 		
-		textPane = new JTextPane();
+		
+		doc = new DefaultStyledDocument();
+		textPane = new JTextPane(doc);
 		
 //		TODO Keylisteners :)
 //		textPane.addKeyListener(new KeyListener() {
@@ -67,6 +100,7 @@ public class Editor extends JFrame implements ActionListener {
 		});
 		//textArea.setLineWrap(false);
 		textPane.setFont(new Font("Arial", Font.PLAIN, 14));
+
 		
 		scrollPane = new JScrollPane(textPane);
 		scrollPane.setPreferredSize(new Dimension(450, 450));

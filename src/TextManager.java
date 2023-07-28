@@ -1,11 +1,26 @@
 
 public class TextManager {
-
-	private String textPaneContents;
+	
+	private Line[] lines;
+	private String[] masters;
+	private String textPaneString;
+	
 	public TextManager() {
-		this.textPaneContents = "";
+		this.textPaneString = "";
 	}
 	
-	public void setTextPaneContents(String arg) { this.textPaneContents = arg; }
-	public String getTextPaneContents() { return this.textPaneContents; }
+	private void update() {
+		
+	}
+	
+	public void setTextPaneContents(String arg) {
+		
+		this.textPaneString = arg;
+		update();
+	
+	}
+	
+	public String getTextPaneContents() {
+		return this.textPaneString; 
+	}
 }
