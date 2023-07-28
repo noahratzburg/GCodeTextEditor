@@ -76,7 +76,7 @@ public class Editor extends JFrame implements ActionListener {
 		this.add(scrollPane);
 		this.setVisible(true);
 		
-		Line line = new Line("G54G90G00 X-69Y0.000009Z4.20 M8 S34 (THIS IS A test, hello)");
+		Line line = new Line("G54G90G00 X-69Y0.0000     Z4.20M8S34(THIS IS A test, hello)");
 	}
 	
 	public void actionPerformed(ActionEvent e) {
