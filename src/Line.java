@@ -1,4 +1,4 @@
-
+import java.util.Arrays;
 
 public class Line {
 
@@ -65,6 +65,15 @@ public class Line {
 				}
 			}
 		}
+		
+		
+        keys = Arrays.stream(keys)
+                .filter(s -> (s != null && s.length() > 0))
+                .toArray(String[]::new);
+        keycode = Arrays.stream(keycode)
+                .filter(s -> (s != null))
+                .toArray(Keycode[]::new);
+        
 		
 		this.keys = keys;		//TODO clean up null values and correctly size this.keys[] and this.keycode[]
 		this.keycode = keycode;

@@ -47,7 +47,16 @@ public class Editor extends JFrame implements ActionListener {
 	StyledDocument doc;
 	
 	Editor() {
-		textManager = new TextManager();
+		textManager = new TextManager(
+				'\n'+
+				"G90G53G00 Z0." + '\n' +
+				"S6000 M3 (spinny boi)" + '\n' +
+				"G54x-69. y420.  A-0.606 M8" + '\n' +
+				"G0 Z1." + '\n' +
+				"G99 G81 Z-3.0 P0.2 F82."
+				);
+		
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("GCode Translate");
 		this.setSize(500, 500);
@@ -57,6 +66,12 @@ public class Editor extends JFrame implements ActionListener {
 		
 		doc = new DefaultStyledDocument();
 		textPane = new JTextPane(doc);
+		try {
+			doc.insertString(0, textManager.getTextPaneContents(), null);
+		} catch (BadLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 //		TODO Keylisteners :)
 //		textPane.addKeyListener(new KeyListener() {
@@ -72,8 +87,7 @@ public class Editor extends JFrame implements ActionListener {
 		textPane.getDocument().addDocumentListener(new DocumentListener() {
 			public void insertUpdate(DocumentEvent e) {
 				try {
-					updateTextManager(e.getDocument().getText(0, e.getDocument().getLength()));
-					System.out.println(textManager.getTextPaneContents());
+					updateTextManagerAppend(e.getOffset(), e.getDocument().getText(e.getOffset(),e.getLength()));
 				} catch (BadLocationException e1) {
 					e1.printStackTrace();
 				}
@@ -81,8 +95,7 @@ public class Editor extends JFrame implements ActionListener {
 			}
 			public void removeUpdate(DocumentEvent e) {
 				try {
-					updateTextManager(e.getDocument().getText(0, e.getDocument().getLength()));
-					System.out.println(textManager.getTextPaneContents());
+					updateTextManagerTrim(e.getOffset(), e.getLength(), e.getDocument().getText(0, e.getDocument().getLength()));
 				} catch (BadLocationException e1) {
 					e1.printStackTrace();
 				}
@@ -90,7 +103,7 @@ public class Editor extends JFrame implements ActionListener {
 			}
 			public void changedUpdate(DocumentEvent e) {
 				try {
-					updateTextManager(e.getDocument().getText(0, e.getDocument().getLength()));
+					updateChange(e.getDocument().getText(0, e.getDocument().getLength()));
 					System.out.println(textManager.getTextPaneContents());
 				} catch (BadLocationException e1) {
 					e1.printStackTrace();
@@ -110,7 +123,7 @@ public class Editor extends JFrame implements ActionListener {
 		this.add(scrollPane);
 		this.setVisible(true);
 		
-		Line line = new Line("G90G54G00x-1.23456y0.000002z69.0     A-0.606 M8 (boop)");
+		//Line line = new Line("G90G54G00x-1.23456y0.000002z69.0     A-0.606 M8 (boop)");
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -122,8 +135,20 @@ public class Editor extends JFrame implements ActionListener {
 		// TODO Key press handled here.
 	}
 	
-	public void updateTextManager(String arg) {
+	public void updateTextManagerAppend(int offset, String arg) {
+		System.out.println("Append offset: " + offset + ", string: " + arg);
+		this.textManager.appendTextPaneContents(offset, arg);
+		System.out.println(textManager.getTextPaneContents());
+	}
+	public void updateTextManagerTrim(int offset, int amount, String arg) {
+		System.out.println("Trim offset: " + offset + ", amount: " + amount);
+		this.textManager.trimTextPaneContents(offset, amount);
+		System.out.println(textManager.getTextPaneContents());
+	}
+	public void updateTextManagerSet(String arg) {
 		this.textManager.setTextPaneContents(arg);
 	}
-	
+	public void updateChange(String arg) {
+		
+	}
 }
