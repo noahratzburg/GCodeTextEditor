@@ -6,8 +6,9 @@ public class Line {
 	String master;  	// original string input in constructor
 	String[] keys;  	// stores seperated text, typically starts with a letter, followed by a value, and any trailing or leading white space.
 	Keycode[] keycode;  // coresponding array to store text type, keycode[] will determine the color of the text, indexed with keys[]
-	Line(){
-	}
+//	Line(){
+//		System.err.println("GET OUT");
+//	}
 	
 	Line(String master){
 		this.master = master; 				// Store original string for comparison 

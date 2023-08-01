@@ -30,6 +30,7 @@ public class TextManager {		// organize lines into a linked list. Based on chang
 				lineIndex++;
 				i=0;
 			}
+			else {System.err.println("setTextPaneContents took a steamy dump on the floor");}
 		}
 		
 	}
