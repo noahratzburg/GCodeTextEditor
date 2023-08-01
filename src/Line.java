@@ -1,4 +1,5 @@
-
+import java.awt.Color;
+import java.util.Arrays;
 
 public class Line {
 
@@ -66,16 +67,14 @@ public class Line {
 			}
 		}
 		
-		this.keys = keys;		//TODO clean up null values and correctly size this.keys[] and this.keycode[]
-		this.keycode = keycode;
-		
-		
-		
+		this.keys = Arrays.stream(keys).filter(s -> (s != null && s.length() > 0)).toArray(String[]::new);  // clean up null values, and properly size arrays
+		this.keycode = Arrays.stream(keycode).filter(s -> (s != null)).toArray(Keycode[]::new);
+
 		System.out.println("the next 2 lines should look the same");
 		System.out.println(this.master);
 		for(int x = 0; x<keys.length; x++) 
 		System.out.print(keys[x]);
-		System.out.println();
+		//System.out.println();
 		for(int x = 0; x<keys.length; x++) {
 		System.out.print(keys[x]);
 		System.out.println(" (" + keycode[x]+ ")");
@@ -83,8 +82,35 @@ public class Line {
 		}
 	}
 	
-	
+	public void UpdateLine() {
+
+	}
+													//TODO figure out how to define keycodes, and set up a config? file to store keycode Definitions, and prefered Colors
 	public enum Keycode{
-		GCODE, MCODE, ZPOINT, XPOINT, YPOINT, APOINT, PCODE, LCODE, DCODE, HCODE, ICODE, JCODE, KCODE, COMMENT, UNKNOWN, BLANK
+		GCODE	(Keycode.getColor()), 
+		MCODE	(Keycode.getColor()), 
+		ZPOINT	(Keycode.getColor()), 
+		XPOINT	(Keycode.getColor()), 
+		YPOINT	(Keycode.getColor()), 
+		APOINT	(Keycode.getColor()), 
+		PCODE	(Keycode.getColor()), 
+		LCODE	(Keycode.getColor()),
+		DCODE	(Keycode.getColor()), 
+		HCODE	(Keycode.getColor()), 
+		ICODE	(Keycode.getColor()), 
+		JCODE	(Keycode.getColor()), 
+		KCODE	(Keycode.getColor()), 
+		COMMENT	(Keycode.getColor()), 
+		UNKNOWN	(Keycode.getColor()), 
+		BLANK	(Keycode.getColor());
+		
+		Color color;
+		Keycode(Color color) {
+			this.color = color;
+		}
+		static Color getColor() {
+			return java.awt.Color.BLACK;
+		}
+		
 	}
 }
